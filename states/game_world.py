@@ -30,13 +30,11 @@ class Player():
         self.load_sprites()
         self.position_x, self.position_y = 189,200
         self.current_frame, self.last_frame_update = 0,0
-        self.ult_y = 0
-        self.ult_x = 0
 
 
     def is_permitted(self, map,position_x,position_y):
         self.row = (self.position_x + (self.size_image.get_height()*0.50) ) // map.get_width_muro()
-        self.colum = (self.position_y + (self.size_image.get_width()*0.70)) // map.get_width_muro()
+        self.colum = (self.position_y + (self.size_image.get_width()*0.90)) // map.get_width_muro()
         #print("Columna: ", colum)
         #print("Fila: ", row)
         #print("tamaño muro", map.get_width_muro())
@@ -50,8 +48,6 @@ class Player():
         # Get the direction from inputs
         direction_x = actions["right"] - actions["left"]
         direction_y = actions["down"] - actions["up"]
-
-        ult_x,ult_y = 0, 0;
 
         # Update the position
         if self.is_permitted(map,100 * delta_time * direction_x,100 * delta_time * direction_y):

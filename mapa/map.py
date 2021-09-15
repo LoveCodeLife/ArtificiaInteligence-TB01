@@ -107,4 +107,5 @@ class Mapa():
         return self.width_muro;
 
     def get_cell(self,x,y):
-        return  self.map[y][x]
+        if x < 50 and y < 50  and y > 0 and x >0:
+            return  self.map[y][x]
