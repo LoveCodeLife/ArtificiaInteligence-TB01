@@ -22,12 +22,8 @@ class Mapa():
                 if i == 0 or j == 0 or i == self.rows - 1 or j == self.columns - 1:
                     cell.make_muro()
                     cell.set_is_muro(True)
-
-        print("filas: ", self.rows)
-        print("columnas: ", self.columns)
-        print("lado : ", self.width_muro)
-
         return map
+
     def make_map01(self):
         map01 = [
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
@@ -81,15 +77,12 @@ class Mapa():
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
             [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
                  ]
+        self.make_map_with_grid(map01)
+
+    def make_map_with_grid(self, grid):
         for i in range(self.rows):
             for j in range(self.columns):
-                if map01[i][j] == 1:
-                    self.make_muro(i,j)
-        #print(map01)
-    def make_muro(self, row, col):
-        for i in range(self.rows):
-            for j in range(self.columns):
-                if i == row and col == j:
+                if grid[i][j] == 1:
                     self.map[i][j].make_muro()
                     self.map[i][j].set_is_muro(True)
 
@@ -109,3 +102,9 @@ class Mapa():
                     continue
         # self.draw_grid(win)
         pygame.display.update()
+
+    def get_width_muro(self):
+        return self.width_muro;
+
+    def get_cell(self,x,y):
+        return  self.map[y][x]

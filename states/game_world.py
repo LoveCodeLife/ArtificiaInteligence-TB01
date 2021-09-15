@@ -16,7 +16,7 @@ class Game_World(State):
         if actions["start"]:
             new_state = PauseMenu(self.game)
             new_state.enter_state()
-        self.player.update(delta_time, actions)
+        self.player.update(delta_time, actions,self.map)
 
     def render(self, display):
         display.blit(self.grass_img, (0,0))
@@ -28,20 +28,50 @@ class Player():
     def __init__(self,game):
         self.game = game
         self.load_sprites()
-        self.position_x, self.position_y = 200,200
+        self.position_x, self.position_y = 189,200
         self.current_frame, self.last_frame_update = 0,0
-        
+        self.ult_y = 0
+        self.ult_x = 0
 
-    def update(self,delta_time, actions):
+
+    def is_permitted(self, map,position_x,position_y):
+        self.row = (self.position_x + (self.size_image.get_height()*0.50) ) // map.get_width_muro()
+        self.colum = (self.position_y + (self.size_image.get_width()*0.70)) // map.get_width_muro()
+        #print("Columna: ", colum)
+        #print("Fila: ", row)
+        #print("tamaño muro", map.get_width_muro())
+        if map.get_cell(int(self.row+position_x),int(self.colum+position_y)).get_is_muro():
+            print("SHOQUE ")
+            return False
+        else:
+            return True
+
+    def update(self,delta_time, actions, map):
         # Get the direction from inputs
         direction_x = actions["right"] - actions["left"]
         direction_y = actions["down"] - actions["up"]
+
+        ult_x,ult_y = 0, 0;
+
         # Update the position
-        self.position_x += 100 * delta_time * direction_x
-        self.position_y += 100 * delta_time * direction_y
+        if self.is_permitted(map,100 * delta_time * direction_x,100 * delta_time * direction_y):
+            self.position_x += 100 * delta_time * direction_x
+            self.position_y += 100 * delta_time * direction_y
+            print("direction X", direction_x)
+            print("direction Y", direction_y)
+
+        #print("Ultimo x: ", ult_x)
+        #print("Ultimo y: ", ult_y)
+        #print("ACTUAL X: ", self.position_x)
+        #print("ACTUAL Y: ", self.position_y)
+
+        #print("Direction x: ", direction_x)
+        #print("Direction y: ", direction_y)
         # Animate the sprite
         self.animate(delta_time,direction_x,direction_y)
 
+    def set_position(self,x,y, map):
+        columna = self.colum * map.get_width_muro()
 
     def render(self, display):
         display.blit(self.curr_image, (self.position_x,self.position_y))
@@ -70,6 +100,7 @@ class Player():
         # Get the diretory with the player sprites
         self.sprite_dir = os.path.join(self.game.sprite_dir, "player")
         self.front_sprites, self.back_sprites, self.right_sprites, self.left_sprites = [],[],[],[]
+
         # Load in the frames for each direction
         for i in range(1,5):
             self.front_sprites.append(pygame.image.load(os.path.join(self.sprite_dir, "player_front" + str(i) +".png")))
@@ -79,3 +110,5 @@ class Player():
         # Set the default frames to facing front
         self.curr_image = self.front_sprites[0]
         self.curr_anim_list = self.front_sprites
+        self.size_image = self.front_sprites[0].convert()
+        print(self.size_image)
