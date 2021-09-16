@@ -20,6 +20,7 @@ class Muro(pygame.sprite.Sprite):
         # self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
 
+    #Es como dibujar el draw image
     def render(self, display):
         display.blit(self.image, (self.rect.x,self.rect.y))
 
