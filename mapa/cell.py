@@ -20,32 +20,9 @@ class Muro(pygame.sprite.Sprite):
         # self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
 
-    # Es como dibujar el draw image
+    #Es como dibujar el draw image
     def render(self, display):
-        display.blit(self.image, (self.rect.x, self.rect.y))
-
-
-class Coin(pygame.sprite.Sprite):
-    def __init__(self, width):
-        super().__init__()
-        self.image_original = pygame.image.load("assets/cell/coin.png")
-        self.image = pygame.transform.scale(self.image_original, (width, width))
-        self.rect = self.image.get_rect()
-        #self.position_x, self.position_y = 0, 0
-
-    def render(self, display):
-        display.blit(self.image, (self.rect.x, self.rect.y))
-
-
-class Garden(pygame.sprite.Sprite):
-    def __init__(self, width):
-        super().__init__()
-        self.image_original = pygame.image.load("assets/cell/garden.png")
-        self.image = pygame.transform.scale(self.image_original, (width, width))
-        self.rect = self.image.get_rect()
-
-    def render(self, display):
-        display.blit(self.image, (self.rect.x, self.rect.y))
+        display.blit(self.image, (self.rect.x,self.rect.y))
 
 
 class Cell:
@@ -60,19 +37,7 @@ class Cell:
         self.total_rows = total_rows
         self.muro_sprite = pygame.sprite.Group()
         self.muro = Muro(width)
-        self.is_muro = False
-        self.coin_sprite = pygame.sprite.Group()
-        self.coin = Coin(width)
-        self.is_coin = False
-        self.garden_sprite = pygame.sprite.Group()
-        self.garden = Garden(width)
-        self.is_garden = False
-
-        #El mejor camino
-        self.is_camino = False;
-        self.is_start = False;
-        self.is_end = False
-
+        self.is_muro = False;
 
     def get_pos(self):
         return self.row, self.col
@@ -90,37 +55,19 @@ class Cell:
         return self.color == ORANGE
 
     def is_end(self):
-
         return self.color == TURQUOISE
+
+    def make_start(self):
+        self.color = ORANGE
 
     def make_barrier(self):
         self.color = BLACK
 
-    def make_start(self):
-        self.is_start = True
-        self.is_garden = False
-        self.is_camino = False
-        self.is_coin = False
-        self.is_end = False
-        self.color = ORANGE
-
     def make_end(self):
-        self.is_start = False
-        self.is_garden = False
-        self.is_camino = False
-        self.is_coin = False
-        self.is_end = True
         self.color = TURQUOISE
 
     def make_path(self):
         self.color = PURPLE
-        self.is_muro = False
-        self.is_coin = False
-
-        self.is_camino= True
-
-    def get_is_camino(self):
-        return self.is_camino
 
     def make_muro(self):
         muro = Muro(self.width)
@@ -129,22 +76,6 @@ class Cell:
 
         self.muro = muro
         self.muro_sprite.add(muro)
-
-    def make_coin(self):
-        coin = Coin(self.width)
-        coin.rect.x = self.x
-        coin.rect.y = self.y
-
-        self.coin = coin
-        self.coin_sprite.add(coin)
-
-    def make_garden(self):
-        garden = Garden(self.width)
-        garden.rect.x = self.x
-        garden.rect.y = self.y
-
-        self.garden = garden
-        self.garden_sprite.add(garden)
 
     def draw(self, win):
         pygame.draw.rect(win, self.color, (self.x, self.y, self.width, self.width))
@@ -158,23 +89,7 @@ class Cell:
     def draw_muro(self, display):
         self.muro.render(display)
 
-    def get_is_coin(self):
-        return self.is_coin
-
-    def set_is_coin(self, value):
-        self.is_coin = value
-
-    def draw_coin(self, display):
-        self.coin.render(display)
-
-    def get_is_garden(self):
-        return self.is_garden
-
-    def set_is_garden(self, value):
-        self.is_garden = value
-
-    def draw_garden(self, display):
-        self.garden.render(display)
-
     def __lt__(self, other):
         return False
+
+

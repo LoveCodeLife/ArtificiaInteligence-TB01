@@ -9,10 +9,6 @@ class Mapa():
         self.rows = rows
         self.width_muro = game.GAME_H // rows
         self.columns = game.GAME_W // self.width_muro
-        self.width_coin = game.GAME_H // rows
-        self.columns = game.GAME_W // self.width_coin
-        self.width_garden = game.GAME_H // rows
-        self.columns = game.GAME_W // self.width_garden
         self.map = self.make_map()
         self.make_map01()
 
@@ -30,8 +26,8 @@ class Mapa():
 
     def make_map01(self):
         map01 = [
-            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
-            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+            [0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
             [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1],
             [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1],
             [1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1],
@@ -58,9 +54,12 @@ class Mapa():
             [1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1],
             [1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1],
             [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1],
-            [1, 1, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1],
-            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1] ]
+            [1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1],
+            [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1] ]
         self.make_map_with_grid(map01)
+
+    def get_grid_map(self):
+        return self.map;
 
     def make_map_with_grid(self, grid):
         for i in range(self.rows):
@@ -68,12 +67,6 @@ class Mapa():
                 if grid[i][j] == 1:
                     self.map[i][j].make_muro()
                     self.map[i][j].set_is_muro(True)
-                if grid[i][j] == 2:
-                    self.map[i][j].make_coin()
-                    self.map[i][j].set_is_coin(True)
-                if grid[i][j] == 0:
-                    self.map[i][j].make_garden()
-                    self.map[i][j].set_is_garden(True)
 
     def draw_grid(self, win):
         gap = self.width_muro
@@ -87,12 +80,6 @@ class Mapa():
             for spot in row:
                 if spot.get_is_muro():
                     spot.draw_muro(win)
-                if spot.get_is_coin():
-                    spot.draw_coin(win)
-                if spot.get_is_garden():
-                    spot.draw_garden(win)
-                if spot.get_is_camino():
-                    spot.draw(win)
                 else:
                     continue
         #self.draw_grid(win)
@@ -101,19 +88,19 @@ class Mapa():
     def get_width_muro(self):
         return self.width_muro
 
-    def get_width_coin(self):
-        return self.width_coin
-
-    def get_width_garden(self):
-        return self.width_garden
-
     def get_cell(self,x,y):
-        if x < 50 and y < 50  and y > 0 and x >0:
+        if x < 50 and y < 30  and y > 0 and x >0:
             return  self.map[y][x]
         else:
-            celda = Cell(0,0,10,50)
+            celda = Cell(0, 0, 10, 50)
             celda.set_is_muro(True)
             return celda
 
-    def get_grid_map(self):
-        return self.map
+    def drawPath(self, win):
+        for row in range(self.rows):
+            for colum in range(self.columns):
+                spot = self.map[row][colum]
+                spot.draw(win)
+
+        self.draw_grid(win)
+        pygame.display.update()
