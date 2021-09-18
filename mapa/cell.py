@@ -60,13 +60,19 @@ class Cell:
         self.total_rows = total_rows
         self.muro_sprite = pygame.sprite.Group()
         self.muro = Muro(width)
-        self.is_muro = False;
+        self.is_muro = False
         self.coin_sprite = pygame.sprite.Group()
         self.coin = Coin(width)
-        self.is_coin = False;
+        self.is_coin = False
         self.garden_sprite = pygame.sprite.Group()
         self.garden = Garden(width)
-        self.is_garden = False;
+        self.is_garden = False
+
+        #El mejor camino
+        self.is_camino = False;
+        self.is_start = False;
+        self.is_end = False
+
 
     def get_pos(self):
         return self.row, self.col
@@ -84,16 +90,37 @@ class Cell:
         return self.color == ORANGE
 
     def is_end(self):
+
         return self.color == TURQUOISE
 
     def make_barrier(self):
         self.color = BLACK
 
+    def make_start(self):
+        self.is_start = True
+        self.is_garden = False
+        self.is_camino = False
+        self.is_coin = False
+        self.is_end = False
+        self.color = ORANGE
+
     def make_end(self):
+        self.is_start = False
+        self.is_garden = False
+        self.is_camino = False
+        self.is_coin = False
+        self.is_end = True
         self.color = TURQUOISE
 
     def make_path(self):
         self.color = PURPLE
+        self.is_muro = False
+        self.is_coin = False
+
+        self.is_camino= True
+
+    def get_is_camino(self):
+        return self.is_camino
 
     def make_muro(self):
         muro = Muro(self.width)

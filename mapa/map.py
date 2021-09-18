@@ -91,19 +91,21 @@ class Mapa():
                     spot.draw_coin(win)
                 if spot.get_is_garden():
                     spot.draw_garden(win)
+                if spot.get_is_camino():
+                    spot.draw(win)
                 else:
                     continue
         #self.draw_grid(win)
         pygame.display.update()
 
     def get_width_muro(self):
-        return self.width_muro;
+        return self.width_muro
 
     def get_width_coin(self):
-        return self.width_coin;
+        return self.width_coin
 
     def get_width_garden(self):
-        return self.width_garden;
+        return self.width_garden
 
     def get_cell(self,x,y):
         if x < 50 and y < 50  and y > 0 and x >0:
@@ -112,3 +114,6 @@ class Mapa():
             celda = Cell(0,0,10,50)
             celda.set_is_muro(True)
             return celda
+
+    def get_grid_map(self):
+        return self.map
