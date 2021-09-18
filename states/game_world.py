@@ -35,10 +35,10 @@ class Player():
     def is_permitted(self, map,position_x,position_y):
         self.row = (self.position_x + (self.size_image.get_height()*0.50) ) // map.get_width_muro()
         self.colum = (self.position_y + (self.size_image.get_width()*0.90)) // map.get_width_muro()
-        print("Postion: ", self.position_x)
+        #print("Postion: ", self.position_x)
         #print("Columna: ", colum)
         #print("Fila: ", row)
-        print("tamaño muro", map.get_width_muro())
+        #wssssssssprint("tamaño muro", map.get_width_muro())
         if map.get_cell(int(self.row+position_x),int(self.colum+position_y)).get_is_muro():
             print("SHOQUE ")
             return False
@@ -54,8 +54,8 @@ class Player():
         if self.is_permitted(map,100 * delta_time * direction_x,100 * delta_time * direction_y):
             self.position_x += 100 * delta_time * direction_x
             self.position_y += 100 * delta_time * direction_y
-            print("direction X", direction_x)
-            print("direction Y", direction_y)
+            #print("direction X", direction_x)
+            #print("direction Y", direction_y)
         else:
             self.position_x -= 100 * delta_time * direction_x
             self.position_y -= 100 * delta_time * direction_y
