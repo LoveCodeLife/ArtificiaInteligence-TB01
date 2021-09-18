@@ -20,9 +20,31 @@ class Muro(pygame.sprite.Sprite):
         # self.image.set_colorkey(BLACK)
         self.rect = self.image.get_rect()
 
-    #Es como dibujar el draw image
+    # Es como dibujar el draw image
     def render(self, display):
-        display.blit(self.image, (self.rect.x,self.rect.y))
+        display.blit(self.image, (self.rect.x, self.rect.y))
+
+
+class Coin(pygame.sprite.Sprite):
+    def __init__(self, width):
+        super().__init__()
+        self.image_original = pygame.image.load("assets/cell/coin.png")
+        self.image = pygame.transform.scale(self.image_original, (width, width))
+        self.rect = self.image.get_rect()
+
+    def render(self, display):
+        display.blit(self.image, (self.rect.x, self.rect.y))
+
+
+class Garden(pygame.sprite.Sprite):
+    def __init__(self, width):
+        super().__init__()
+        self.image_original = pygame.image.load("assets/cell/garden.png")
+        self.image = pygame.transform.scale(self.image_original, (width, width))
+        self.rect = self.image.get_rect()
+
+    def render(self, display):
+        display.blit(self.image, (self.rect.x, self.rect.y))
 
 
 class Cell:
@@ -38,6 +60,12 @@ class Cell:
         self.muro_sprite = pygame.sprite.Group()
         self.muro = Muro(width)
         self.is_muro = False;
+        self.coin_sprite = pygame.sprite.Group()
+        self.coin = Coin(width)
+        self.is_coin = False;
+        self.garden_sprite = pygame.sprite.Group()
+        self.garden = Garden(width)
+        self.is_garden = False;
 
     def get_pos(self):
         return self.row, self.col
@@ -74,6 +102,22 @@ class Cell:
         self.muro = muro
         self.muro_sprite.add(muro)
 
+    def make_coin(self):
+        coin = Coin(self.width)
+        coin.rect.x = self.x
+        coin.rect.y = self.y
+
+        self.coin = coin
+        self.coin_sprite.add(coin)
+
+    def make_garden(self):
+        garden = Garden(self.width)
+        garden.rect.x = self.x
+        garden.rect.y = self.y
+
+        self.garden = garden
+        self.garden_sprite.add(garden)
+
     def draw(self, win):
         pygame.draw.rect(win, self.color, (self.x, self.y, self.width, self.width))
 
@@ -86,7 +130,23 @@ class Cell:
     def draw_muro(self, display):
         self.muro.render(display)
 
+    def get_is_coin(self):
+        return self.is_coin
+
+    def set_is_coin(self, value):
+        self.is_coin = value
+
+    def draw_coin(self, display):
+        self.coin.render(display)
+
+    def get_is_garden(self):
+        return self.is_garden
+
+    def set_is_garden(self, value):
+        self.is_garden = value
+
+    def draw_garden(self, display):
+        self.garden.render(display)
+
     def __lt__(self, other):
         return False
-
-
