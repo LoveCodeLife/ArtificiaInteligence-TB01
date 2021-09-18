@@ -31,6 +31,7 @@ class Coin(pygame.sprite.Sprite):
         self.image_original = pygame.image.load("assets/cell/coin.png")
         self.image = pygame.transform.scale(self.image_original, (width, width))
         self.rect = self.image.get_rect()
+        #self.position_x, self.position_y = 0, 0
 
     def render(self, display):
         display.blit(self.image, (self.rect.x, self.rect.y))
