@@ -11,10 +11,10 @@ class Game_World(State):
         #self.player2 = Player(self.game)
         #self.player2.position_x, self.player2.position_y = 200, 190
         #self.player.position_x, self.player.position_y = 189, 200
-        self.grass_img = pygame.image.load(os.path.join(self.game.assets_dir, "map", "grass.png"))
         self.ROWS = 30
         self.map = Mapa(self.game,self.ROWS)
         #TODO COIN_POS
+
     def update(self,delta_time, actions):
         # Check if the game was paused 
         if actions["start"]:
@@ -24,7 +24,6 @@ class Game_World(State):
         #self.player2.update(delta_time, actions, self.map)
 
     def render(self, display):
-        display.blit(self.grass_img, (0,0))
         self.map.draw(display)
         self.player.render(display)
         #self.player2.render(display)
@@ -33,12 +32,17 @@ class Game_World(State):
         position = 3,3
         if(self.player.get_position_in_grid(self.map) == position):
             print("AQUI ESTOYY")
+
+            #Points inicio y final le meti hardcode XD seee
             start = self.map.get_grid_map()[3][3]
-            end = self.map.get_grid_map()[3][10]
-            start.make_start()
-            end.make_end()
-            algorithm(lambda: self.map.draw(display), self.map.get_grid_map(), start, end)
+            end = self.map.get_grid_map()[25][30]
+            start.make_coin()
+            end.make_coin()
             self.map.draw(display)
+            self.map.algorithm(self.map.get_grid_map(),start, end)
+            self.map.update_vecinos()
+
+
         
 
 class Player():
@@ -53,7 +57,6 @@ class Player():
         self.colum = (self.position_y + (self.size_image.get_width()*0.90)) // map.get_width_muro()
         return  self.row, self.colum
 
-
     def is_permitted(self, map,position_x,position_y):
         self.row = (self.position_x + (self.size_image.get_height()*0.50) ) // map.get_width_muro()
         self.colum = (self.position_y + (self.size_image.get_width()*0.90)) // map.get_width_muro()
@@ -66,6 +69,7 @@ class Player():
             return False
         else:
             return True
+
     def is_wingame(self,map,position_x, position_y):
         self.row = (self.position_x + (self.size_image.get_height() * 0.50)) // map.get_width_coin()
         self.colum = (self.position_y + (self.size_image.get_width() * 0.90)) // map.get_width_coin()
