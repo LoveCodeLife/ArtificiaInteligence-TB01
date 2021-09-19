@@ -13,13 +13,13 @@ class Game_World(State):
 
         #TODO COIN_YELLOW  el coin sera para agregar + 5 segundos de tiempo
         self.coins = []
-        self.initialize()
+        self.initialize_coins()
 
         #TODO COIN_RED el coin será para obtener el camino mas corto
 
-    def initialize(self):
-        coin01 = self.map.get_grid_map()[3][3]
-        coin02 = self.map.get_grid_map()[5][5]
+    def initialize_coins(self):
+        coin01 = self.map.get_grid_map()[10][10]
+        coin02 = self.map.get_grid_map()[15][15]
         coin03 = self.map.get_grid_map()[15][10]
         coin04 = self.map.get_grid_map()[28][30]
 
@@ -51,17 +51,19 @@ class Game_World(State):
             self.coin_yellow(coin)
 
         position = 3,3
+        self.map.update_vecinos()
         if(self.player.get_position_in_grid(self.map) == position):
             print("AQUI ESTOYY")
 
             #Points inicio y final le meti hardcode XD seee
             start = self.map.get_grid_map()[3][3]
-            end = self.map.get_grid_map()[29][30]
+            end = self.map.get_grid_map()[47][77]
             start.make_coin()
             end.make_coin()
-            self.map.draw(display)
+
             self.map.algorithm(self.map.get_grid_map(),start, end)
-            self.map.update_vecinos()
+
+
 
         #TODO PRINT CONTADOR
         #self.game.draw_text(display, "PARTY MENU GOES HERE", (0,0,0), self.game.GAME_W/2, self.game.GAME_H/2 )

@@ -169,8 +169,7 @@ class Cell:
         self.coin_sprite.add(coin)
 
         self.is_muro = False
-        self.is_coin = False
-        self.is_start = True
+        self.is_start = False
         self.is_garden = True
         self.is_camino = False
         self.is_coin = True
@@ -216,10 +215,10 @@ class Cell:
 
         self.is_muro = False
         self.is_coin = False
-        self.is_start = True
+        self.is_start = False
         self.is_garden = True
         self.is_camino = False
-        self.is_coin = False
+        self.is_coin = True
         self.is_end = False
 
         self.is_camino = True
