@@ -109,7 +109,7 @@ class Mapa():
         return self.width_garden
 
     def get_cell(self,x,y):
-        if x < 50 and y < 50  and y > 0 and x >0:
+        if x < 49 and y < 29  and y > 1 and x >1:
             return  self.map[y][x]
         else:
             celda = Cell(0,0,10,50,30)
