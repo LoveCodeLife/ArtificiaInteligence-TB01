@@ -9,21 +9,22 @@ class Game_World(State):
         self.player = Player(self.game)
         self.ROWS = 50
         self.map = Mapa(self.game,self.ROWS)
-        self.time = 10
+        self.time = 100
 
         #TODO COIN_YELLOW  el coin_blue sera para agregar + 5 segundos de tiempo
         self.coins_blue = []
         self.coins_red = []
         self.initialize_coins()
+        self.clock = pygame.time.Clock()
 
         #TODO COIN_RED el coin_blue será para obtener el camino mas corto
 
     def initialize_coins(self):
         #Initialize coins blue
         coin01 = self.map.get_grid_map()[19][55]
-        coin02 = self.map.get_grid_map()[14][15]
-        coin03 = self.map.get_grid_map()[14][10]
-        coin04 = self.map.get_grid_map()[27][30]
+        coin02 = self.map.get_grid_map()[2][41]
+        coin03 = self.map.get_grid_map()[32][9]
+        coin04 = self.map.get_grid_map()[25][43]
 
         coin01.make_coin()
         coin02.make_coin()
@@ -36,17 +37,11 @@ class Game_World(State):
         self.coins_blue.append(coin04)
 
         #Initialize coin_blue red
-        coinred01 = self.map.get_grid_map()[19][56]
-        coinred02 = self.map.get_grid_map()[14][16]
-        coinred03 = self.map.get_grid_map()[14][11]
+        coinred01 = self.map.get_grid_map()[40][54]
 
         coinred01.make_coin_red()
-        coinred02.make_coin_red()
-        coinred03.make_coin_red()
 
         self.coins_red.append(coinred01)
-        self.coins_red.append(coinred02)
-        self.coins_red.append(coinred03)
 
     def update(self,delta_time, actions):
         # Check if the game was paused 
@@ -56,6 +51,7 @@ class Game_World(State):
         self.player.update(delta_time, actions,self.map)
 
     def render(self, display):
+        self.clock.tick(10000)
         self.map.draw(display)
         self.player.render(display)
 
@@ -64,28 +60,55 @@ class Game_World(State):
         for coin in self.coins_blue:
             self.coin_yellow(coin)
 
-        position = 3,3
+        position = 54,40
+        positionFinal = 76,47
+        positionCoin01 = 55,19
+        positionCoin02 = 41,2
+        positionCoin03 = 9,32
+        positionCoin04 = 43,25
+
+        if(self.player.get_position_in_grid(self.map) == positionCoin01):
+            self.time = 100
+        if(self.player.get_position_in_grid(self.map) == positionCoin02):
+            self.time = 100
+        if(self.player.get_position_in_grid(self.map) == positionCoin03):
+            self.time = 100
+        if(self.player.get_position_in_grid(self.map) == positionCoin04):
+            self.time = 100
+
         self.map.update_vecinos()
         if(self.player.get_position_in_grid(self.map) == position):
             #print("AQUI ESTOYY")
 
             #Points inicio y final le meti hardcode XD seee
-            start = self.map.get_grid_map()[3][3]
+            start = self.map.get_grid_map()[40][54]
             end = self.map.get_grid_map()[47][77]
-            start.make_coin()
+            start.make_coin_red()
             end.make_coin()
 
             self.map.algorithm(self.map.get_grid_map(),start, end)
-
-
+        else:
+            self.map.reset_camino()
 
         #TODO PRINT CONTADOR
-        #self.game.draw_text(display, "PARTY MENU GOES HERE", (0,0,0), self.game.GAME_W/2, self.game.GAME_H/2 )
+        self.time -=0.1
+        font = pygame.font.SysFont(None, 40)
+        self.game.draw_text(display, str(int(self.time)), (255, 255, 255), self.game.GAME_W / 5, self.game.GAME_H / 5)
+
+        print("AQUI ESTOY", self.player.get_position_in_grid(self.map))
+        if(self.player.get_position_in_grid(self.map) == positionFinal):
+            #print("AQUI ESTOY")
+            self.game.draw_text(display, "YOU WINNNNNNNNNNNNNN", (255,255,255), self.game.GAME_W/2, self.game.GAME_H/2 )
+            self.game.draw_text(display, "GAME", (255,255,255), self.game.GAME_W / 2, (self.game.GAME_H  / 2) + 30)
+
+        if(self.time <= 0 ):
+            self.time = 0
+            self.game.draw_text(display, "YOU LOSE", (255,255,255), self.game.GAME_W / 2, (self.game.GAME_H  / 2) + 30)
 
     def coin_yellow(self, coin_yellow):
         #print("TIME", self.time)
         if(self.player.get_position_in_grid(self.map) == coin_yellow.get_pos()):
-            self.time = 30
+            self.time = self.time + 10
 
     def coin_red(self, coin_red):
         if(self.player.get_position_in_grid(self.map) == coin_yellow.coin_red()):

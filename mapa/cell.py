@@ -249,6 +249,10 @@ class Cell:
     def draw_camino(self, display):
         self.camino.render(display)
 
+    def set_camino_to_void(self):
+        self.is_camino = False
+
+
     def make_path(self):
         camino = Camino(self.width)
         camino.rect.x = self.x
