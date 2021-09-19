@@ -7,12 +7,32 @@ class Game_World(State):
     def __init__(self, game):
         State.__init__(self,game)
         self.player = Player(self.game)
-        #self.player2 = Player(self.game)
-        #self.player2.position_x, self.player2.position_y = 200, 190
-        #self.player.position_x, self.player.position_y = 189, 200
         self.ROWS = 30
         self.map = Mapa(self.game,self.ROWS)
-        #TODO COIN_POS
+        self.time = 10
+
+        #TODO COIN_YELLOW  el coin sera para agregar + 5 segundos de tiempo
+        self.coins = []
+        self.initialize()
+
+        #TODO COIN_RED el coin será para obtener el camino mas corto
+
+    def initialize(self):
+        coin01 = self.map.get_grid_map()[3][3]
+        coin02 = self.map.get_grid_map()[5][5]
+        coin03 = self.map.get_grid_map()[15][10]
+        coin04 = self.map.get_grid_map()[28][30]
+
+        coin01.make_coin()
+        coin02.make_coin()
+        coin03.make_coin()
+        coin04.make_coin()
+
+        self.coins.append(coin01)
+        self.coins.append(coin02)
+        self.coins.append(coin03)
+        self.coins.append(coin04)
+
 
     def update(self,delta_time, actions):
         # Check if the game was paused 
@@ -20,14 +40,16 @@ class Game_World(State):
             new_state = PauseMenu(self.game)
             new_state.enter_state()
         self.player.update(delta_time, actions,self.map)
-        #self.player2.update(delta_time, actions, self.map)
 
     def render(self, display):
         self.map.draw(display)
         self.player.render(display)
-        #self.player2.render(display)
 
         #Si el jugador se encuentra en la posicion tal
+
+        for coin in self.coins:
+            self.coin_yellow(coin)
+
         position = 3,3
         if(self.player.get_position_in_grid(self.map) == position):
             print("AQUI ESTOYY")
@@ -41,14 +63,24 @@ class Game_World(State):
             self.map.algorithm(self.map.get_grid_map(),start, end)
             self.map.update_vecinos()
 
+    def coin_yellow(self, coin_yellow):
+        print("TIME", self.time)
+        if(self.player.get_position_in_grid(self.map) == coin_yellow.get_pos()):
+            self.time = 30
 
-        
+    def coin_red(self, coin_red):
+        if(self.player.get_position_in_grid(self.map) == coin_yellow.coin_red()):
+            start.make_coin()
+            end.make_coin()
+            self.map.draw(display)
+            self.map.algorithm(self.map.get_grid_map(),start, end)
+            self.map.update_vecinos()
 
 class Player():
     def __init__(self,game):
         self.game = game
         self.load_sprites()
-        self.position_x, self.position_y= 100,50
+        self.position_x, self.position_y= 15,15
         self.current_frame, self.last_frame_update = 0,0
 
     def get_position_in_grid(self, map):

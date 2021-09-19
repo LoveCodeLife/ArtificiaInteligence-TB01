@@ -11,7 +11,7 @@ class PauseMenu(State):
         self.menu_rect = self.menu_img.get_rect()
         self.menu_rect.center = (self.game.GAME_W*.85, self.game.GAME_H*.4)
         # Set the cursor and menu states
-        self.menu_options = {0 :"Party", 1 : "Items", 2 :"Magic", 3 : "Exit"}
+        self.menu_options = {0 :"Party", 1 : "Easy map", 2 :"Hard map", 3 : "Exit"}
         self.index = 0
         self.cursor_img = pygame.image.load(os.path.join(self.game.assets_dir, "map", "cursor.png"))
         self.cursor_rect = self.cursor_img.get_rect()
