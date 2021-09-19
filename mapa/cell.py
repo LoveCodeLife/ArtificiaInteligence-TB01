@@ -100,7 +100,7 @@ class Cell:
     def is_barrier(self):
         return self.color == BLACK
     def is_murrooo(self):
-        return False;
+        return self.is_muro;
 
     def is_start(self):
         return self.color == ORANGE
