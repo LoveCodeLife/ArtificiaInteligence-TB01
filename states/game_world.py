@@ -11,28 +11,42 @@ class Game_World(State):
         self.map = Mapa(self.game,self.ROWS)
         self.time = 10
 
-        #TODO COIN_YELLOW  el coin sera para agregar + 5 segundos de tiempo
-        self.coins = []
+        #TODO COIN_YELLOW  el coin_blue sera para agregar + 5 segundos de tiempo
+        self.coins_blue = []
+        self.coins_red = []
         self.initialize_coins()
 
-        #TODO COIN_RED el coin será para obtener el camino mas corto
+        #TODO COIN_RED el coin_blue será para obtener el camino mas corto
 
     def initialize_coins(self):
-        coin01 = self.map.get_grid_map()[10][10]
-        coin02 = self.map.get_grid_map()[15][15]
-        coin03 = self.map.get_grid_map()[15][10]
-        coin04 = self.map.get_grid_map()[28][30]
+        #Initialize coins blue
+        coin01 = self.map.get_grid_map()[19][55]
+        coin02 = self.map.get_grid_map()[14][15]
+        coin03 = self.map.get_grid_map()[14][10]
+        coin04 = self.map.get_grid_map()[27][30]
 
         coin01.make_coin()
         coin02.make_coin()
         coin03.make_coin()
         coin04.make_coin()
 
-        self.coins.append(coin01)
-        self.coins.append(coin02)
-        self.coins.append(coin03)
-        self.coins.append(coin04)
+        self.coins_blue.append(coin01)
+        self.coins_blue.append(coin02)
+        self.coins_blue.append(coin03)
+        self.coins_blue.append(coin04)
 
+        #Initialize coin_blue red
+        coinred01 = self.map.get_grid_map()[19][56]
+        coinred02 = self.map.get_grid_map()[14][16]
+        coinred03 = self.map.get_grid_map()[14][11]
+
+        coinred01.make_coin_red()
+        coinred02.make_coin_red()
+        coinred03.make_coin_red()
+
+        self.coins_red.append(coinred01)
+        self.coins_red.append(coinred02)
+        self.coins_red.append(coinred03)
 
     def update(self,delta_time, actions):
         # Check if the game was paused 
@@ -47,7 +61,7 @@ class Game_World(State):
 
         #Si el jugador se encuentra en la posicion tal
 
-        for coin in self.coins:
+        for coin in self.coins_blue:
             self.coin_yellow(coin)
 
         position = 3,3
@@ -110,7 +124,7 @@ class Player():
     def is_wingame(self,map,position_x, position_y):
         self.row = (self.position_x + (self.size_image.get_height() * 0.50)) // map.get_width_coin()
         self.colum = (self.position_y + (self.size_image.get_width() * 0.90)) // map.get_width_coin()
-        if map.get_cell(int(self.row+position_x),int(self.colum+position_y)).get_is_coin():
+        if map.get_cell(int(self.row+position_x),int(self.colum+position_y)).get_is_coin_blue():
             print("WIN")
             return False
         else:

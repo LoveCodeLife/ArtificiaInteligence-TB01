@@ -28,9 +28,22 @@ class Muro(pygame.sprite.Sprite):
 class Coin(pygame.sprite.Sprite):
     def __init__(self, width):
         super().__init__()
-        self.image_original = pygame.image.load("assets/cell/coin.png")
+        self.image_original = pygame.image.load("assets/cell/bluecoin.png")
         self.image = pygame.transform.scale(self.image_original, (width, width))
         self.rect = self.image.get_rect()
+        self.image.set_colorkey(WHITE)
+        # self.position_x, self.position_y = 0, 0
+
+    def render(self, display):
+        display.blit(self.image, (self.rect.x, self.rect.y))
+
+class CoinRed(pygame.sprite.Sprite):
+    def __init__(self, width):
+        super().__init__()
+        self.image_original = pygame.image.load("assets/cell/redcoin.png")
+        self.image = pygame.transform.scale(self.image_original, (width, width))
+        self.rect = self.image.get_rect()
+        self.image.set_colorkey(WHITE)
         # self.position_x, self.position_y = 0, 0
 
     def render(self, display):
@@ -73,12 +86,19 @@ class Cell:
         self.muro_sprite = pygame.sprite.Group()
         self.muro = Muro(width)
         self.is_muro = False
-        self.coin_sprite = pygame.sprite.Group()
-        self.coin = Coin(width)
-        self.is_coin = False
+
+        self.coin_blue_sprite = pygame.sprite.Group()
+        self.coin_blue = Coin(width)
+        self.is_coin_blue = False
+
+        self.coin_red_sprite = pygame.sprite.Group()
+        self.coin_red = CoinRed(width)
+        self.is_coin_red = False
+
         self.garden_sprite = pygame.sprite.Group()
         self.garden = Garden(width)
         self.is_garden = False
+
         self.total_columns = total_columns
         # El mejor camino
         self.camino = Camino(width)
@@ -116,7 +136,7 @@ class Cell:
         self.is_start = True
         self.is_garden = False
         self.is_camino = False
-        self.is_coin = False
+        self.is_coin_blue = False
         self.is_end = False
         self.color = ORANGE
 
@@ -124,7 +144,7 @@ class Cell:
         self.is_start = False
         self.is_garden = False
         self.is_camino = False
-        self.is_coin = False
+        self.is_coin_blue = False
         self.is_end = True
         self.color = TURQUOISE
 
@@ -150,29 +170,53 @@ class Cell:
         self.muro = muro
         self.muro_sprite.add(muro)
 
-    #Methods by coin
-    def get_is_coin(self):
-        return self.is_coin
+    #Methods by coin_blue
+    def get_is_coin_blue(self):
+        return self.is_coin_blue
+
+    def get_is_coin_red(self):
+        return self.is_coin_red
 
     def set_is_coin(self, value):
-        self.is_coin = value
+        self.is_coin_blue = value
 
-    def draw_coin(self, display):
-        self.coin.render(display)
+    def draw_coin_blue(self, display):
+        self.coin_blue.render(display)
+
+    def draw_coin_red(self, display):
+        self.coin_red.render(display)
 
     def make_coin(self):
         coin = Coin(self.width)
         coin.rect.x = self.x
         coin.rect.y = self.y
 
-        self.coin = coin
-        self.coin_sprite.add(coin)
+        self.coin_blue = coin
+        self.coin_blue_sprite.add(coin)
 
         self.is_muro = False
         self.is_start = False
-        self.is_garden = True
+        self.is_garden = False
         self.is_camino = False
-        self.is_coin = True
+        self.is_coin_blue = True
+        self.is_end = False
+
+        self.is_camino = False
+
+    def make_coin_red(self):
+        coinRed = CoinRed(self.width)
+        coinRed.rect.x = self.x
+        coinRed.rect.y = self.y
+
+        self.coin_red = coinRed
+        self.coin_red_sprite.add(coinRed)
+
+        self.is_muro = False
+        self.is_start = False
+        self.is_garden = False
+        self.is_camino = False
+        self.is_coin_blue = False
+        self.is_coin_red = True
         self.is_end = False
 
         self.is_camino = False
@@ -214,11 +258,11 @@ class Cell:
         self.camino_sprite.add(camino)
 
         self.is_muro = False
-        self.is_coin = False
+        self.is_coin_blue = False
         self.is_start = False
         self.is_garden = True
         self.is_camino = False
-        self.is_coin = True
+        self.is_coin_blue = True
         self.is_end = False
 
         self.is_camino = True
