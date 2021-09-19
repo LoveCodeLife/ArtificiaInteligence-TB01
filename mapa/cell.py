@@ -170,7 +170,7 @@ class Cell:
         self.muro = muro
         self.muro_sprite.add(muro)
 
-    #Methods by coin_blue
+    #Methods by coin_blue and coin_red
     def get_is_coin_blue(self):
         return self.is_coin_blue
 
@@ -252,7 +252,7 @@ class Cell:
     def set_camino_to_void(self):
         self.is_camino = False
 
-
+    #Method path
     def make_path(self):
         camino = Camino(self.width)
         camino.rect.x = self.x
