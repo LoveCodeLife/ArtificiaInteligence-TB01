@@ -2,7 +2,6 @@ import pygame, os
 from states.state import State
 from states.pause_menu import PauseMenu
 from mapa.map import Mapa
-from algorithms.Astar import algorithm
 
 class Game_World(State):
     def __init__(self, game):
