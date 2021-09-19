@@ -63,6 +63,9 @@ class Game_World(State):
             self.map.algorithm(self.map.get_grid_map(),start, end)
             self.map.update_vecinos()
 
+        #TODO PRINT CONTADOR
+        self.game.draw_text(display, "PARTY MENU GOES HERE", (0,0,0), self.game.GAME_W/2, self.game.GAME_H/2 )
+
     def coin_yellow(self, coin_yellow):
         print("TIME", self.time)
         if(self.player.get_position_in_grid(self.map) == coin_yellow.get_pos()):
