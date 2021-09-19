@@ -140,7 +140,8 @@ class Cell:
 
     def draw_muro(self, display):
         self.muro.render(display)
-
+    def get_with(self):
+        return self.width
     def make_muro(self):
         muro = Muro(self.width)
         muro.rect.x = self.x

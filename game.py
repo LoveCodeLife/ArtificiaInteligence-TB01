@@ -5,8 +5,8 @@ from states.title import Title
 class Game():
         def __init__(self):
             pygame.init()
-            self.GAME_W,self.GAME_H = 500, 300
-            self.SCREEN_WIDTH,self.SCREEN_HEIGHT = 1000, 600
+            self.GAME_W,self.GAME_H = 550, 350
+            self.SCREEN_WIDTH,self.SCREEN_HEIGHT = 1300, 780
             self.game_canvas = pygame.Surface((self.GAME_W,self.GAME_H))
             self.screen = pygame.display.set_mode((self.SCREEN_WIDTH,self.SCREEN_HEIGHT))
             self.running, self.playing = True, True

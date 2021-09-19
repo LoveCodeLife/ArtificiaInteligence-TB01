@@ -7,7 +7,7 @@ class Game_World(State):
     def __init__(self, game):
         State.__init__(self,game)
         self.player = Player(self.game)
-        self.ROWS = 30
+        self.ROWS = 50
         self.map = Mapa(self.game,self.ROWS)
         self.time = 10
 
@@ -64,10 +64,10 @@ class Game_World(State):
             self.map.update_vecinos()
 
         #TODO PRINT CONTADOR
-        self.game.draw_text(display, "PARTY MENU GOES HERE", (0,0,0), self.game.GAME_W/2, self.game.GAME_H/2 )
+        #self.game.draw_text(display, "PARTY MENU GOES HERE", (0,0,0), self.game.GAME_W/2, self.game.GAME_H/2 )
 
     def coin_yellow(self, coin_yellow):
-        print("TIME", self.time)
+        #print("TIME", self.time)
         if(self.player.get_position_in_grid(self.map) == coin_yellow.get_pos()):
             self.time = 30
 
@@ -99,7 +99,8 @@ class Player():
         #print("Fila: ", row)
         #wssssssssprint("tamaño muro", map.get_width_muro())
         if map.get_cell(int(self.row+position_x),int(self.colum+position_y)).get_is_muro():
-            print("SHOQUE ")
+            print("SHOQUE ", map.get_cell(int(self.row+position_x),int(self.colum+position_y)).get_with())
+
             return False
         else:
             return True
@@ -119,7 +120,7 @@ class Player():
         direction_y = actions["down"] - actions["up"]
 
         # Update the position
-        if self.is_permitted(map,100 * delta_time * direction_x,100 * delta_time * direction_y):
+        if self.is_permitted(map,10 * delta_time * direction_x,10 * delta_time * direction_y):
             self.position_x += 100 * delta_time * direction_x
             self.position_y += 100 * delta_time * direction_y
             #print("direction X", direction_x)
