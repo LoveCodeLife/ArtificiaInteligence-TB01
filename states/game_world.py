@@ -78,7 +78,7 @@ class Game_World(State):
 
         self.map.update_vecinos()
         if(self.player.get_position_in_grid(self.map) == position):
-            #print("AQUI ESTOYY")
+            print("AQUI ESTOYY")
 
             #Points inicio y final le meti hardcode XD seee
             start = self.map.get_grid_map()[40][54]
