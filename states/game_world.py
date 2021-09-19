@@ -35,7 +35,7 @@ class Game_World(State):
 
             #Points inicio y final le meti hardcode XD seee
             start = self.map.get_grid_map()[3][3]
-            end = self.map.get_grid_map()[25][30]
+            end = self.map.get_grid_map()[30][45]
             start.make_coin()
             end.make_coin()
             self.map.draw(display)

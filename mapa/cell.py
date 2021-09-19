@@ -99,6 +99,7 @@ class Cell:
 
     def is_barrier(self):
         return self.color == BLACK
+
     def is_murrooo(self):
         return self.is_muro;
 
