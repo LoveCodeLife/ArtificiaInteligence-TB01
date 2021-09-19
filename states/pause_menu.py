@@ -11,7 +11,7 @@ class PauseMenu(State):
         self.menu_rect = self.menu_img.get_rect()
         self.menu_rect.center = (self.game.GAME_W*.85, self.game.GAME_H*.4)
         # Set the cursor and menu states
-        self.menu_options = {0 :"Party", 1 : "Easy map", 2 :"Hard map", 3 : "Exit"}
+        self.menu_options = {0 :"Resume", 1 : "Exit"}
         self.index = 0
         self.cursor_img = pygame.image.load(os.path.join(self.game.assets_dir, "map", "cursor.png"))
         self.cursor_rect = self.cursor_img.get_rect()
@@ -34,13 +34,10 @@ class PauseMenu(State):
         display.blit(self.cursor_img, self.cursor_rect)
 
     def transition_state(self):
-        if self.menu_options[self.index] == "Party": 
+        if self.menu_options[self.index] == "Resume":
             new_state = PartyMenu(self.game)
             new_state.enter_state()
-        elif self.menu_options[self.index] == "Items": 
-            pass # TO-DO
-        elif self.menu_options[self.index] == "Magic": 
-            pass # TO-DO
+
         elif self.menu_options[self.index] == "Exit": 
             while len(self.game.state_stack) > 1:
                 self.game.state_stack.pop()
