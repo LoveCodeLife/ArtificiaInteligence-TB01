@@ -67,7 +67,7 @@ class Game_World(State):
         position = 3,3
         self.map.update_vecinos()
         if(self.player.get_position_in_grid(self.map) == position):
-            print("AQUI ESTOYY")
+            #print("AQUI ESTOYY")
 
             #Points inicio y final le meti hardcode XD seee
             start = self.map.get_grid_map()[3][3]
@@ -115,7 +115,7 @@ class Player():
         #print("Fila: ", row)
         #wssssssssprint("tamaño muro", map.get_width_muro())
         if map.get_cell(int(self.row+position_x),int(self.colum+position_y)).get_is_muro():
-            print("SHOQUE ", map.get_cell(int(self.row+position_x),int(self.colum+position_y)).get_with())
+            #print("SHOQUE ", map.get_cell(int(self.row+position_x),int(self.colum+position_y)).get_with())
 
             return False
         else:
